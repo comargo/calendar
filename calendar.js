@@ -88,7 +88,7 @@ function doCalculate(_theForm) {
     if (!currentYear) {
       currentYear = document.createElement('div');
       currentYear.setAttribute('id', `year${value.getFullYear()}`);
-      currentYear.setAttribute('class', 'row');
+      currentYear.setAttribute('class', 'row col-12');
       currentYear.innerHTML = `<h2 class="w-100">${value.getFullYear()}</h2>`;
       calendarOutput.appendChild(currentYear);
     }
@@ -105,7 +105,7 @@ function doCalculate(_theForm) {
     currentMonth.appendChild(currentDay);
   });
   const summary = document.createElement('div');
-  summary.setAttribute('class', 'row');
+  summary.setAttribute('class', 'row col-12');
   summary.innerHTML = `<h2 class="w-100">Итого</h2><p>${output.length} часов </p>`;
   calendarOutput.appendChild(summary);
   return false;
