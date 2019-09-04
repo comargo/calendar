@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Учебный календарь</title>
+  </head>
+  <body>
+    <h1>Учебный календарь</h1>
+    <div class="container">
+        <form action="#" onsubmit="return doCalculate(this);">
+            <div class="form-group row">
+                <label for="beginDate" class="col-sm-2 col-form-label">Дата начала</label>
+                <div class="col-sm">
+                    <input type="date" class="form-control" name="beginDate" id="beginDate" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="endDate" class="col-sm-2 col-form-label">Дата окончания</label>
+                <div class="col-sm">
+                    <input type="date" class="form-control" name="endDate" id="endDate" placeholder="">
+                </div>
+            </div>
+            <div class="form-check form-check-inline p-1">
+                <input class="form-check-input" type="checkbox" name="dow-1" id="dow-1" />
+                <label class="form-check-label" for="dow-1">Пн</label>
+            </div>
+            <div class="form-check form-check-inline p-1">
+                <input class="form-check-input" type="checkbox" name="dow-2" id="dow-2" />
+                <label class="form-check-label" for="dow-2">Вт</label>
+            </div>
+            <div class="form-check form-check-inline p-1">
+                <input class="form-check-input" type="checkbox" name="dow-3" id="dow-3" />
+                <label class="form-check-label" for="dow-3">Ср</label>
+            </div>
+            <div class="form-check form-check-inline p-1">
+                <input class="form-check-input" type="checkbox" name="dow-4" id="dow-4" />
+                <label class="form-check-label" for="dow-4">Чт</label>
+            </div>
+            <div class="form-check form-check-inline p-1">
+                <input class="form-check-input" type="checkbox" name="dow-5" id="dow-5" />
+                <label class="form-check-label" for="dow-5">Пт</label>
+            </div>
+            <div class="form-check form-check-inline p-1 bg-warning text-dark">
+                <input class="form-check-input" type="checkbox" name="dow-6" id="dow-6" />
+                <label class="form-check-label" for="dow-6">Сб</label>
+            </div>
+            <div class="form-check form-check-inline p-1 bg-danger text-white">
+                <input class="form-check-input" type="checkbox" name="dow-0" id="dow-0" />
+                <label class="form-check-label" for="dow-0">Вс</label>
+            </div>
+    
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Расчёт</button>
+                </div>
+            </div>
+        </form>
+        <div id="calendarOutput" class="row"></div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <!-- Calendar script -->
+    <script src="calendar.js"></script>
+  </body>
+</html>
