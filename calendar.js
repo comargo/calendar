@@ -34,22 +34,6 @@ const daysOff = [
   '2020-05-11',
 ];
 
-function fillDate() {
-  const curDate = new Date();
-  const thresholdDate = new Date(curDate.getFullYear(), 6, 1, 12, 0);
-  let beginDate = new Date(curDate.getFullYear(), 8, 1, 12, 0);
-  let endDate = new Date(curDate.getFullYear() + 1, 4, 31, 12, 0);
-  if (curDate < thresholdDate) {
-    beginDate = new Date(curDate.getFullYear() - 1, 8, 1, 12, 0);
-    endDate = new Date(curDate.getFullYear(), 4, 31, 12, 0);
-  }
-
-  document.getElementById('beginDate').value = beginDate.toISOString().slice(0, 10);
-  document.getElementById('endDate').value = endDate.toISOString().slice(0, 10);
-}
-
-fillDate();
-
 function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
   const calendarDates = [];
   for (let date = new Date(beginDate); date < endDate; date.setDate(date.getDate() + 1)) {
@@ -63,7 +47,7 @@ function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function doCalculate(_theForm) {
+function doCalculate(_event, _theForm) {
   const selectedDays = [];
   for (let dow = 0; dow < 7; dow += 1) {
     const element = document.getElementById(`dow-${dow.toString()}`);
@@ -110,3 +94,37 @@ function doCalculate(_theForm) {
   calendarOutput.appendChild(summary);
   return false;
 }
+
+function fillDate() {
+  const curDate = new Date();
+  const thresholdDate = new Date(curDate.getFullYear(), 6, 1, 12, 0);
+  let beginDate = new Date(curDate.getFullYear(), 8, 1, 12, 0);
+  let endDate = new Date(curDate.getFullYear() + 1, 4, 31, 12, 0);
+  if (curDate < thresholdDate) {
+    beginDate = new Date(curDate.getFullYear() - 1, 8, 1, 12, 0);
+    endDate = new Date(curDate.getFullYear(), 4, 31, 12, 0);
+  }
+
+  document.getElementById('beginDate').value = beginDate.toISOString().slice(0, 10);
+  document.getElementById('endDate').value = endDate.toISOString().slice(0, 10);
+}
+
+function addHandlers() {
+  const form = document.getElementById('form');
+  const elements = form.getElementsByTagName('input');
+  for (let input = 0; input < elements.length; input += 1) {
+    const element = elements[input];
+    if (element.getAttribute('type') === 'checkbox') {
+      if (element.addEventListener) {
+        element.addEventListener('change', (event) => doCalculate(event, form), false);
+      } else {
+        element.attachEvent('onchange', (event) => doCalculate(event, form));
+      }
+    }
+  }
+}
+
+fillDate();
+addHandlers();
+
+
