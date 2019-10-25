@@ -59,12 +59,15 @@ function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
 // eslint-disable-next-line no-unused-vars
 function doCalculate(_event, _theForm) {
   const selectedDays = [];
+  let locationHash = "d"
   for (let dow = 0; dow < 7; dow += 1) {
     const element = document.getElementById(`dow-${dow.toString()}`);
     if (element.checked) {
       selectedDays.push(dow);
+      locationHash = locationHash+"-"+dow.toString();
     }
   }
+  window.location.hash = locationHash;
   const beginDate = new Date(document.getElementById('beginDate').value);
   const endDate = new Date(document.getElementById('endDate').value);
   endDate.setDate(endDate.getDate() + 1);
@@ -134,7 +137,19 @@ function addHandlers() {
   }
 }
 
+function fillDow() {
+  if(window.location.hash == "") {
+    return
+  }
+  window.location.hash.split("-").slice(1).forEach(function(dow){
+    const element = document.getElementById(`dow-${dow}`);
+    element.checked = true;
+  })
+  doCalculate();
+}
+
 fillDate();
 addHandlers();
+fillDow();
 
 
