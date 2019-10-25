@@ -13,6 +13,16 @@ const months = [
   'Декабрь',
 ];
 
+const daysOfWeek = [
+  'Вс',
+  'Пн',
+  'Вт',
+  'Ср',
+  'Чт',
+  'Пт',
+  'Сб',
+]
+
 const daysOff = [
   '2019-11-04',
 
@@ -85,7 +95,7 @@ function doCalculate(_event, _theForm) {
       currentYear.appendChild(currentMonth);
     }
     const currentDay = document.createElement('p');
-    currentDay.innerHTML = value.getDate();
+    currentDay.innerHTML = `<span class="text-primary">${value.getDate().toString()}</span>&nbsp;<span class="small text-secondary">${daysOfWeek[value.getDay()]}</span>`;
     currentMonth.appendChild(currentDay);
   });
   const summary = document.createElement('div');
