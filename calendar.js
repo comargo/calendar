@@ -23,25 +23,6 @@ const daysOfWeek = [
   'Сб',
 ]
 
-const daysOff = [
-  '2019-11-04',
-
-  '2020-01-01',
-  '2020-01-02',
-  '2020-01-03',
-  '2020-01-04',
-  '2020-01-05',
-  '2020-01-06',
-  '2020-01-07',
-  '2020-01-08',
-  '2020-02-24',
-  '2020-03-09',
-  '2020-05-01',
-  '2020-05-05',
-  '2020-05-09',
-  '2020-05-11',
-];
-
 function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
   const calendarDates = [];
   for (let date = new Date(beginDate); date < endDate; date.setDate(date.getDate() + 1)) {
@@ -57,10 +38,9 @@ function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
 // eslint-disable-next-line no-unused-vars
 function doCalculate(_event, _theForm) {
   const selectedDays = [];
-  let locationHash = "d"
+  let locationHash = document.getElementById('six_day_week').checked?"6d":"5d";
   for (let dow = 0; dow < 7; dow += 1) {
-    const element = document.getElementById(`dow-${dow.toString()}`);
-    if (element.checked) {
+    if (document.getElementById(`dow-${dow.toString()}`).checked) {
       selectedDays.push(dow);
       locationHash = locationHash+"-"+dow.toString();
     }
@@ -69,6 +49,8 @@ function doCalculate(_event, _theForm) {
   const beginDate = new Date(document.getElementById('beginDate').value);
   const endDate = new Date(document.getElementById('endDate').value);
   endDate.setDate(endDate.getDate() + 1);
+  let daysOff = (document.getElementById('six_day_week').checked)?six_day_week:five_day_week;
+  
   const output = makeCalendar(beginDate, endDate, selectedDays, daysOff);
   const calendarOutput = document.getElementById('calendarOutput');
 
@@ -125,29 +107,42 @@ function addHandlers() {
   const elements = form.getElementsByTagName('input');
   for (let input = 0; input < elements.length; input += 1) {
     const element = elements[input];
-    if (element.getAttribute('type') === 'checkbox') {
-      if (element.addEventListener) {
-        element.addEventListener('change', (event) => doCalculate(event, form), false);
-      } else {
-        element.attachEvent('onchange', (event) => doCalculate(event, form));
-      }
+    if (element.addEventListener) {
+      element.addEventListener('change', (event) => doCalculate(event, form), false);
+    } else {
+      element.attachEvent('onchange', (event) => doCalculate(event, form));
     }
   }
 }
 
 function fillDow() {
   if(window.location.hash == "") {
-    return
+    return;
   }
   window.location.hash.split("-").slice(1).forEach(function(dow){
     const element = document.getElementById(`dow-${dow}`);
     element.checked = true;
-  })
+  });
+  document.getElementById("six_day_week").checked = window.location.hash.startsWith("#6d");
   doCalculate();
 }
 
+let five_day_week = [],
+    six_day_week = [];
+
+let json5Day = $.getJSON("./5day.json")
+                    .done(function (data){
+                      five_day_week = data;
+                    });
+
+let json6Day = $.getJSON("./6day.json")
+                    .done(function (data){
+                      six_day_week = data;
+                    });
+
+$.when(json5Day, json6Day).done(function(){
+  fillDow();
+});
+
 fillDate();
 addHandlers();
-fillDow();
-
-
