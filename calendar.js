@@ -23,11 +23,14 @@ const daysOfWeek = [
   'Сб',
 ]
 
-function makeCalendar(beginDate, endDate, selectedDOWs, hollidays) {
+function makeCalendar(beginDate, endDate, selectedDOWs, daysOff) {
   const calendarDates = [];
   for (let date = new Date(beginDate); date < endDate; date.setDate(date.getDate() + 1)) {
     if (selectedDOWs.includes(date.getDay())) {
-      if (!hollidays.includes(date.toISOString().slice(0, 10))) {
+      const curDate = date.toISOString().slice(0, 10);
+      if(curDate in daysOff['move']) {
+        calendarDates.push(new Date(daysOff['move'][curDate]))
+      } else if (!daysOff['holiday'].includes(date.toISOString().slice(0, 10))) {
         calendarDates.push(new Date(date));
       }
     }
