@@ -40,6 +40,15 @@ function makeCalendar(beginDate, endDate, selectedDOWs, daysOff) {
 
 // eslint-disable-next-line no-unused-vars
 function doCalculate(_event, _theForm) {
+  document.getElementById(`dow-0`).checked = false;
+  if(document.getElementById('six_day_week').checked) {
+    document.getElementById(`dow-6`).disabled = false;
+  } 
+  else {
+    document.getElementById(`dow-6`).checked = false;
+    document.getElementById(`dow-6`).disabled = true;
+  }
+
   const selectedDays = [];
   let locationHash = document.getElementById('six_day_week').checked?"6d":"5d";
   for (let dow = 0; dow < 7; dow += 1) {
@@ -116,6 +125,8 @@ function addHandlers() {
       element.attachEvent('onchange', (event) => doCalculate(event, form));
     }
   }
+
+  document.getElementById(`dow-0`).disabled = true;
 }
 
 function fillDow() {
